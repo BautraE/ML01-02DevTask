@@ -1,0 +1,45 @@
+<?php
+/**
+ * @var \ExampleCorp\Learning\Block\Widget\Test $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+?>
+
+<h3>
+    <?= $escaper->escapeHtml($block->getData('title')) ?>
+</h3>
+<?php
+/**
+ * List pf all available CMS pages
+ * @var $allOptions
+ */
+?>
+<?php $allOptions = $block->getData('cms_page_data'); ?>
+<?php if ($block->getData('display_mode') == "a"): ?>
+    <ul>
+        <?php foreach ($allOptions as $option): ?>
+            <li>
+                <a href="<?= $escaper->escapeUrl($option['url']) ?>">
+                    <?= $escaper->escapeHtml($option['label']) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <?php $validOptions = $block->getData('selected_pages'); ?>
+    <?php $validOptionIDs = explode(',', $validOptions); ?>
+    <ul>
+    <?php foreach ($validOptionIDs as $validOption): ?>
+        <?php  foreach ($allOptions as $optionFromAll): ?>
+            <?php if((int)$validOption === (int)$optionFromAll['value']): ?>
+                <li>
+                    <a href="<?= $escaper->escapeUrl($optionFromAll['url']) ?>">
+                        <?= $escaper->escapeHtml($optionFromAll['label']) ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

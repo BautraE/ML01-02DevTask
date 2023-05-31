@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="cms_placement" class="Magebit\PageListWidget\Block\Widget\PageList">
+        <label>CMS Placement-Learning</label>
+        <description>Widget that provides the possibility to place a list
+            of CMS pages where necessary.</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" visible="true" required="true">
+                <label>Title</label>
+            </parameter>
+            <parameter name="display_mode" xsi:type="select" visible="true" required="true">
+                <label>Display Mode</label>
+                <options>
+                    <option name="all_pages" value="a">
+                        <label>All Pages</label>
+                    </option>
+                    <option name="specific_pages" value="s">
+                        <label>Specific Pages</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="selected_pages" xsi:type="multiselect" visible="true" required="true"
+                       source_model="Magebit\PageListWidget\Block\Source\CMSPages\CMSPages">
+                <label>Selected Pages</label>
+                <depends>
+                    <parameter name="display_mode" value="s"/>
+                </depends>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
