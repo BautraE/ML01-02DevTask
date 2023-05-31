@@ -6,9 +6,11 @@
         <description>Widget that provides the possibility to place a list
             of CMS pages where necessary.</description>
         <parameters>
+            <!-- Title parameter -->
             <parameter name="title" xsi:type="text" visible="true" required="true">
                 <label>Title</label>
             </parameter>
+            <!-- Display mode parameter (all pages or specific pages) -->
             <parameter name="display_mode" xsi:type="select" visible="true" required="true">
                 <label>Display Mode</label>
                 <options>
@@ -20,9 +22,15 @@
                     </option>
                 </options>
             </parameter>
+            <!-- Select pages parameter
+               - This parameter is hidden by default and appears only when
+               - "Specific pages" is chosen in the Display mode parameter.
+               - All of the available options are from the CMSPages.php file.
+               -->
             <parameter name="selected_pages" xsi:type="multiselect" visible="true" required="true"
                        source_model="Magebit\PageListWidget\Block\Source\CMSPages\CMSPages">
                 <label>Selected Pages</label>
+                <!-- Previoulsy mentioned dependency -->
                 <depends>
                     <parameter name="display_mode" value="s"/>
                 </depends>
