@@ -3,65 +3,22 @@
  * @var \ExampleCorp\Learning\Block\Widget\Test $block
  * @var \Magento\Framework\Escaper $escaper
  */
-
 ?>
-
 <h3>
     <?= $escaper->escapeHtml($block->getData('title')) ?>
 </h3>
 <?php
 /**
- * List pf all available CMS pages
- * @var array $allOptions
+ * @var array $pages
  */
 ?>
-<?php $allOptions = $block->getData('cms_page_data'); ?>
-<?php if ($block->getData('display_mode') == "a"): ?>
-    <ul>
-        <?php
-        /**
-        * An item from the list $allOptions
-        * @var array $option
-        */
-        ?>
-        <?php foreach ($allOptions as $option): ?>
-            <li>
-                <a href="<?= $escaper->escapeUrl($option['url']) ?>">
-                    <?= $escaper->escapeHtml($option['label']) ?>
-                </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-<?php else: ?>
-    <?php
-    /**
-     * A string with a list of all selected CMS page values
-     * @var array $validOptions
-     * List of CSM page values extracted from string $validOptions
-     * @var array $validOptionIDs
-     */
-    ?>
-    <?php $validOptions = $block->getData('selected_pages'); ?>
-    <?php $validOptionIDs = explode(',', $validOptions); ?>
-    <ul>
-        <?php
-        /**
-         * A single CMS page value from $validOptionsID
-         * @var array $validOption
-         * A single CMS page value from $optionFromAll
-         * @var array $optionFromAll
-         */
-        ?>
-        <?php foreach ($validOptionIDs as $validOption): ?>
-            <?php  foreach ($allOptions as $optionFromAll): ?>
-                <?php if((int)$validOption === (int)$optionFromAll['value']): ?>
-                    <li>
-                        <a href="<?= $escaper->escapeUrl($optionFromAll['url']) ?>">
-                            <?= $escaper->escapeHtml($optionFromAll['label']) ?>
-                        </a>
-                    </li>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        <?php endforeach; ?>
-    </ul>
-<?php endif; ?>
+<?php $pages = $block->getRightPages() ?>
+<ul>
+    <?php foreach ($pages as $page): ?>
+    <li>
+        <a href="<?= $escaper->escapeHtml($page['identifier']) ?>">
+            <?= $escaper->escapeHtml($page['title']) ?>
+        </a>
+    </li>
+    <?php endforeach; ?>
+</ul>

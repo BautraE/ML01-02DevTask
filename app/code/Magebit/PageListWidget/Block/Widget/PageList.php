@@ -1,35 +1,77 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Magebit\PageListWidget\Block\Widget;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
-use Magebit\PageListWidget\Block\Source\CMSPages\CMSPages;
+use Magento\Cms\Api\PageRepositoryInterface;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Api\FilterBuilder;
 
 class PageList extends Template implements BlockInterface
 {
-    protected $cmsPages;
+    /**
+     * @var string
+     */
+    protected $_template = "page-list.phtml";
+    /**
+     * @var PageRepositoryInterface
+     */
+    protected $pageRepositoryInterface;
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
+    /**
+     * @var FilterBuilder
+     */
+    protected $filterBuilder;
 
-    public function __construct(Template\Context $context,
-            CMSPages $cmsPages, array $data = [] ) {
+    /**
+     * @param Template\Context $context
+     * @param PageRepositoryInterface $pageRepositoryInterface
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param FilterBuilder $filterBuilder
+     * @param array $data
+     */
+    public function __construct(
+        Template\Context $context,
+        PageRepositoryInterface $pageRepositoryInterface,
+        SearchCriteriaBUilder $searchCriteriaBuilder,
+        FilterBuilder $filterBuilder,
+        array $data = []
+    ) {
         parent::__construct($context, $data);
-        $this->cmsPages = $cmsPages;
+        $this->pageRepositoryInterface = $pageRepositoryInterface;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->filterBuilder = $filterBuilder;
     }
 
     /**
-     * Gets the full list of all CMS pages from CMSPages.php
-     * @function getCMSPageOptions
+     * @return array
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getCMSPageOptions()
-    {
-        return $this->cmsPages->toOptionArray();
-    }
+    public function getRightPages():array {
+        $displayMode = $this->getData('display_mode');
 
-    protected function _prepareLayout()
-    {
-        $this->setData('cms_page_data', $this->getCMSPageOptions());
-        parent::_prepareLayout();
-    }
+        if ($displayMode == "s") {
+            $pageIDString = $this->getData('selected_pages');
+            // var_dump($pageIDString);
+            $pageIDs = explode(',', $pageIDString);
+            // var_dump($pageIDs);
+            $filter = $this->filterBuilder
+                ->setField('page_id')
+                ->setValue($pageIDs)
+                ->setConditionType('in')
+                ->create();
+            $searchCriteria = $this->searchCriteriaBuilder->addFilters([$filter]);
 
-    protected $_template = "page-list.phtml";
+        }
+        $searchCriteria = $this->searchCriteriaBuilder->create();
+
+        $requiredPages = $this->pageRepositoryInterface->getList($searchCriteria)->getItems();
+        return $requiredPages;
+    }
 }

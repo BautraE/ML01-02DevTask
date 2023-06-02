@@ -28,7 +28,7 @@
                - All of the available options are from the CMSPages.php file.
                -->
             <parameter name="selected_pages" xsi:type="multiselect" visible="true" required="true"
-                       source_model="Magebit\PageListWidget\Block\Source\CMSPages\CMSPages">
+                       source_model="Magebit\PageListWidget\Model\Config\Source\CMSPages">
                 <label>Selected Pages</label>
                 <!-- Previoulsy mentioned dependency -->
                 <depends>
