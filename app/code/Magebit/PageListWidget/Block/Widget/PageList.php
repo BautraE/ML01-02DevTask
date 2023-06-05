@@ -58,9 +58,7 @@ class PageList extends Template implements BlockInterface
 
         if ($displayMode == "s") {
             $pageIDString = $this->getData('selected_pages');
-            // var_dump($pageIDString);
             $pageIDs = explode(',', $pageIDString);
-            // var_dump($pageIDs);
             $filter = $this->filterBuilder
                 ->setField('page_id')
                 ->setValue($pageIDs)
