@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+
+
+        <referenceContainer name="product.info.type" remove="true"/>
+
+        <!-- TEXT "IN STOCK"
+        <move element="product.info.type"
+              destination="product.info.form.content"
+              before="-" />
+        -->
+
+
+        <move element="product.attributes"
+              destination="product.info.main"
+              after="product.info.price" />
+
+        <referenceBlock name="product.info.details" remove="true" />
+
+
+        <referenceContainer name="product.info.extrahint" remove="true" />
+        <referenceBlock name="product.attributes">
+            <arguments>
+                <argument name="class" xsi:type="string">Magebit\MagebitProductPage\Block\Product\View\Attributes</argument>
+            </arguments>
+        </referenceBlock>
+        <!-- <referenceBlock name="product.info.upsell" remove="true" />
+        <move element="product.info.upsell" destination="content.aside" after="-" /> -->
+
+        <move element="product.info.upsell"
+              destination="product.info.main"
+              after="-" />
+        <!--
+        <container name="product.info.main" htmlTag="div" htmlClass="product-info-main" before="-">
+        -->
+        <!--
+        <block class="Magento\Catalog\Block\Product\ProductList\Upsell" name="product.info.upsell" template="Magento_Catalog::product/list/items.phtml">
+            <arguments>
+                <argument name="type" xsi:type="string">upsell</argument>
+                <argument name="view_model" xsi:type="object">Magento\Catalog\ViewModel\Product\Listing\PreparePostData</argument>
+            </arguments>
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="upsell.product.addto" as="addto">
+                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                       name="upsell.product.addto.compare" as="compare"
+                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
+            </block>
+        </block>
+        -->
+    </body>
+</page>
