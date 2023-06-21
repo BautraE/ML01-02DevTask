@@ -27,11 +27,29 @@
 
 
         <referenceContainer name="product.info.extrahint" remove="true" />
+
+        <referenceBlock name="product.attributes">
+            <arguments>
+                <argument name="attributes_extended" xsi:type="object">Magebit\MagebitProductPage\Block\Product\View\Attributes</argument>
+            </arguments>
+        </referenceBlock>
+
+        <!--
         <referenceBlock name="product.attributes">
             <arguments>
                 <argument name="class" xsi:type="string">Magebit\MagebitProductPage\Block\Product\View\Attributes</argument>
             </arguments>
         </referenceBlock>
+
+        ////Aizgāja////
+        <block class="Magebit\MagebitProductPage\Block\Product\View\Attributes" name="product.attributes" as="additional" template="Magento_Catalog::product/view/attributes.phtml" group="detailed_info">
+            <arguments>
+                <argument translate="true" name="title" xsi:type="string">More Information</argument>
+                <argument name="sort_order" xsi:type="string">20</argument>
+            </arguments>
+        </block>
+        -->
+
         <!-- <referenceBlock name="product.info.upsell" remove="true" />
         <move element="product.info.upsell" destination="content.aside" after="-" /> -->
 
@@ -53,6 +71,9 @@
                        template="Magento_Catalog::product/list/addto/compare.phtml"/>
             </block>
         </block>
+        -->
+        <!--
+        <move element="catalog.product.related" destination="content.aside" after="-" />
         -->
     </body>
 </page>

@@ -7,52 +7,27 @@
 /** @var $block \Magento\Catalog\Block\Product\View */
 ?>
 <?php
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$stockState = $objectManager->get(\Magento\CatalogInventory\Api\StockStateInterface::class);
+$buttonTitle = __('Add to Cart');
 
-// Get the product ID
 $_product = $block->getProduct();
-$productId = $_product->getId();
+$stockItem = $_product->getExtensionAttributes()->getStockItem();
+$inStock = $stockItem->getQty() > 0;
+$stockQuantity = $stockItem->getQty();
 
-// Check if the product is in stock
-$isInStock = $stockState->getStockQty($productId) > 0;
-$stockQuantity = $stockState->getStockQty($productId);
-
-/*
-if ($isInStock) {
-    echo "In Stock";
-} else {
-    echo "Out of Stock";
-}
-*/
-
-//$_product = $block->getProduct();
 ?>
-<?php $buttonTitle = __('Add to Cart'); ?>
 <?php if ($_product->isSaleable()) :?>
 <div class="box-tocart">
     <div class="fieldset">
         <?php if ($block->shouldRenderQuantity()) :?>
         <div class="field qty">
-            <div class="control">
-                <input type="button"
-                       class="add-decrease-buttons decrease-button"/>
-                <input type="number"
-                       name="qty"
-                       id="qty"
-                       min="0"
-                       value="<?= $block->getProductDefaultQty() * 1 ?>"
-                       title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
-                       class="input-text qty"
-                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
-                       />
-                <input type="button"
-                       class="add-decrease-buttons add-button"/>
-                <?php if ($isInStock): ?>
-                    <span>In Stock</span>
-                    <span><?= $block->escapeHtml($stockQuantity) ?> items available</span>
+            <div class="control" id="qty-counter" data-bind="scope:'quantityChanger'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <?php if ($inStock): ?>
+                    <span class="check-image"></span>
+                    <span class="stock-state-text">IN STOCK</span>
+                    <span class="quantity-count-text"><?= $block->escapeHtml($stockQuantity) ?> items available</span>
                 <?php else: ?>
-                    <span>Out of Stock</span>
+                    <span class="stock-state-text">OUT OF STOCK</span>
                 <?php endif; ?>
             </div>
         </div>
@@ -73,6 +48,20 @@ if ($isInStock) {
     {
         "#product_addtocart_form": {
             "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "#qty-counter": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "quantityChanger": {
+                        "component": "Magento_Catalog/js/quantity_counter",
+                        "template": "Magento_Catalog/quantity-template"
+                    }
+                }
+            }
         }
     }
 </script>

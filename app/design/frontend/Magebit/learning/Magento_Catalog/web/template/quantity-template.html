@@ -1,0 +1,31 @@
+<div class="control">
+    <input type="button"
+           class="add-decrease-buttons decrease-button"
+           data-bind="click: decreaseQuantity"/>
+    <input type="number"
+           name="qty"
+           id="qty"
+           min="0"
+           title="Qty"
+           class="input-text qty"
+           data-bind="value: quantity"
+    />
+    <input type="button"
+           class="add-decrease-buttons add-button"
+           data-bind="click: increaseQuantity"/>
+    <!--
+    <input type="button"
+           class="add-decrease-buttons decrease-button"/>
+    <input type="number"
+           name="qty"
+           id="qty"
+           min="0"
+           value="<?= $block->getProductDefaultQty() * 1 ?>"
+           title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+           class="input-text qty"
+           data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+    />
+    <input type="button"
+           class="add-decrease-buttons add-button"/>
+    -->
+</div>

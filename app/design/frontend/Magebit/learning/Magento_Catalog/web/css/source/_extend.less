@@ -25,6 +25,18 @@
         padding: 6px 10px 5px 10px;
     }
 
+    .product-info-main .product-info-price {
+        display: flex;
+        justify-content: flex-start;
+        align-items:center;
+
+        border: none;
+    }
+
+    .price-box.price-final_price {
+        padding-bottom: 0px;
+    }
+
     // Price text
     .price{
         font: normal normal 600 32px/43px Open Sans;
@@ -35,6 +47,7 @@
     // Dic container that contains quantity selection
     .control {
         display: flex;
+        align-items: center;
     }
 
     // Quantity buttons for Add To Cart:
@@ -52,12 +65,10 @@
 
     .add-button {
         background-image: url('Magento_Catalog::images/Plus-sign-add.svg');
-
     }
 
     .decrease-button {
         background-image: url('Magento_Catalog::images/Minus-sign-decrease.svg');
-
     }
 
     // Field with quantity number
@@ -70,30 +81,68 @@
         height: 52px;
     }
 
+    // Stock state checkmark image
+    .check-image {
+        width: 11px;
+        height: 19px;
+
+        background-image: url('Magento_Catalog::images/Check-mark.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+
+        margin-left: 20px;
+        margin-right: 4px;
+    }
+
+    // Stock state text
+    .stock-state-text{
+        font: normal normal bold 14px/19px Open Sans;
+        letter-spacing: 0px;
+        color: #575757;
+
+        margin-right: 6px;
+    }
+
+    // Available quantity text
+    .quantity-count-text {
+        font: normal normal normal 14px/19px Open Sans;
+        letter-spacing: 0px;
+        color: #333333;
+    }
+
     // Add To Cart button
     .action.primary.tocart {
         border: none;
         border-radius: 2px;
         background-color: #FF5501;
     }
+    .fieldset .actions .action.primary.tocart {
+        width: 100%;
+    }
 
     .additional-attributes-wrapper {
         background-color: #F9F9F9;
-    }
-
-    .product-info-main .product-info-price {
-        display: flex;
-        justify-content: flex-start;
-
-        border: none;
     }
 
     .products.list.items.product-items {
         border-top: 1px solid #C2C2C2;
     }
 
+    /**************************/
     #product-item_13 > div {
         display: flex;
+        flex-wrap: nowrap;
+        width: 100px;
+    }
+    /**************************/
+
+    .product-reviews-summary {
+        display: flex;
+    }
+
+    .product-reviews-summary .reviews-actions {
+        display: flex;
+        flex-wrap: nowrap;
     }
 
     #block-related-heading {
@@ -102,15 +151,59 @@
         color: #333333;
     }
 
-    /*
-    .bullet-row:before {
-        content: "\2022"; /* Bullet point character
-        display: inline-block;
-        width: 1em;
-        margin-left: -1em;
-        vertical-align: bottom;
+    .product-item-info.related-available {
+        width: 224px;
     }
-    */
+
+    .product-image-photo {
+        margin: 0;
+    }
+
+    .products.list.items.product-items > li{
+        margin-left: 30px;
+    }
+
+    .products.list.items.product-items > li > div{
+        padding: 10px;
+        //background-color:blue;
+    }
+
+    .product-image-container.product-image-container-21 > .product-image-wrapper {
+        padding: 0;
+    }
+
+    .products.list.items.product-items > li > div:hover{
+        background-color:red;
+        margin: 0;
+    }
+
+    // Related product title
+    .block.related .related-available .product-item-name {
+        margin-left: 0px;
+    }
+
+    // Price on related products
+    .price-container .price {
+        font: normal normal bold 22px/30px Open Sans;
+        letter-spacing: 0px;
+        color: #333333;
+    }
+
+    // Related product "Add to Cart" button
+    .product.actions.product-item-actions .actions-primary {
+        width: 100%;
+    }
+    .product.actions.product-item-actions .actions-primary form{
+        width: 100%;
+    }
+    .actions-primary form .action.tocart.primary {
+        width: 100%;
+
+        font: normal normal 600 18px/24px Open Sans;
+        letter-spacing: 0px;
+        color: #FFFFFF;
+    }
+
     .additional-attributes-wrapper {
         padding: 20px;
     }
@@ -123,6 +216,11 @@
         font: normal normal 600 14px/19px Open Sans;
         letter-spacing: 0px;
         color: #FFFFFF;
+    }
+
+    .bullet:before {
+        content: "\2022";
+        margin-right: 5px;
     }
 }
 
