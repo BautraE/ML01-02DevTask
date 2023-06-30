@@ -15,31 +15,70 @@
 <?php
     $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
     $_product = $block->getProduct();
-
-    $extendedClass = $block->getData('attributes_extended');
-    $description = $extendedClass->getDescription($_product);
 ?>
-<?php if ($_additional = $extendedClass->getAttributeList($_product)) :?>
-    <div class="additional-attributes-wrapper table-wrapper">
-        <table class="data table additional-attributes" id="product-attribute-specs-table">
-            <tbody>
-            <?php foreach ($_additional as $_data) :?>
-                <tr>
-                    <td class="col data bullet" >
-                        <b> <?= $block->escapeHtml($_data['label'] . ': ') ?> </b>
-                        <?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['label']) ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-                <tr>
-                    <td class="col data" id="short-description">
-                        <?= $block->escapeHtml($description) ?>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
+<?php
+/**
+ * Since this phtml file is used by all product types and in order to deal
+ * with the conflicting change errors, there are two different blocks of code
+ * where one represents the Simple product and the other - every other product type.
+ * This is achieved with an if statement.
+*/
+?>
+
+<?php if($_product->getTypeId() == 'simple'): ?>
+    <?php
+    /**
+     * Simple product
+     */
+    ?>
+    <?php
+        $extendedClass = $block->getData('attributes_extended');
+        $description = $extendedClass->getDescription($_product);
+    ?>
+    <?php if ($_additional= $extendedClass->getAttributeList($_product)) :?>
+        <div class="additional-attributes-wrapper table-wrapper">
+            <table class="data table additional-attributes" id="product-attribute-specs-table">
+                <tbody>
+                <?php foreach ($_additional as $_data) :?>
+                    <tr>
+                        <td class="col data bullet" >
+                            <b> <?= $block->escapeHtml($_data['label'] . ': ') ?> </b>
+                            <?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['label']) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                    <tr>
+                        <td class="col data" id="short-description">
+                            <?= $block->escapeHtml($description) ?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <?php endif;?>
+
+<?php else: ?>
+    <?php
+    /**
+     * All other product types
+     * This is also the default code from vendor
+     */
+    ?>
+    <?php if ($_additional = $block->getAdditionalData()) :?>
+        <div class="additional-attributes-wrapper table-wrapper">
+            <table class="data table additional-attributes" id="product-attribute-specs-table">
+                <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
+                <tbody>
+                <?php foreach ($_additional as $_data) :?>
+                    <tr>
+                        <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
+                        <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif;?>
+
 <?php endif;?>
-
-
-

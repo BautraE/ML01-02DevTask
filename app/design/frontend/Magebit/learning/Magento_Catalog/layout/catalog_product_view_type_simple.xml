@@ -7,73 +7,31 @@
 -->
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+        <!-- Wrapper that will define that the style for this task will apply only to the simple product pages. -->
+        <referenceContainer name="page.wrapper" htmlId="page-wrap-simple"></referenceContainer>
 
-
-
-        <referenceContainer name="product.info.type" remove="true"/>
-
-        <!-- TEXT "IN STOCK"
-        <move element="product.info.type"
-              destination="product.info.form.content"
-              before="-" />
-        -->
-
-
+        <!-- Moving the additional attribute block -->
         <move element="product.attributes"
               destination="product.info.main"
               after="product.info.price" />
 
-        <referenceBlock name="product.info.details" remove="true" />
+        <!-- Removing unnecessary elements/blocks from the page -->
+        <referenceContainer name="product.info.type" remove="true"/>
 
+        <referenceBlock name="product.info.details" remove="true" />
 
         <referenceContainer name="product.info.extrahint" remove="true" />
 
+        <!-- Adding the custom extended Attributes.php class as an attribute in order to use its function -->
         <referenceBlock name="product.attributes">
             <arguments>
                 <argument name="attributes_extended" xsi:type="object">Magebit\MagebitProductPage\Block\Product\View\Attributes</argument>
             </arguments>
         </referenceBlock>
 
-        <!--
-        <referenceBlock name="product.attributes">
-            <arguments>
-                <argument name="class" xsi:type="string">Magebit\MagebitProductPage\Block\Product\View\Attributes</argument>
-            </arguments>
-        </referenceBlock>
-
-        ////Aizgāja////
-        <block class="Magebit\MagebitProductPage\Block\Product\View\Attributes" name="product.attributes" as="additional" template="Magento_Catalog::product/view/attributes.phtml" group="detailed_info">
-            <arguments>
-                <argument translate="true" name="title" xsi:type="string">More Information</argument>
-                <argument name="sort_order" xsi:type="string">20</argument>
-            </arguments>
-        </block>
-        -->
-
-        <!-- <referenceBlock name="product.info.upsell" remove="true" />
-        <move element="product.info.upsell" destination="content.aside" after="-" /> -->
-
+        <!-- Moving the upsell product block -->
         <move element="product.info.upsell"
               destination="product.info.main"
               after="-" />
-        <!--
-        <container name="product.info.main" htmlTag="div" htmlClass="product-info-main" before="-">
-        -->
-        <!--
-        <block class="Magento\Catalog\Block\Product\ProductList\Upsell" name="product.info.upsell" template="Magento_Catalog::product/list/items.phtml">
-            <arguments>
-                <argument name="type" xsi:type="string">upsell</argument>
-                <argument name="view_model" xsi:type="object">Magento\Catalog\ViewModel\Product\Listing\PreparePostData</argument>
-            </arguments>
-            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="upsell.product.addto" as="addto">
-                <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
-                       name="upsell.product.addto.compare" as="compare"
-                       template="Magento_Catalog::product/list/addto/compare.phtml"/>
-            </block>
-        </block>
-        -->
-        <!--
-        <move element="catalog.product.related" destination="content.aside" after="-" />
-        -->
     </body>
 </page>

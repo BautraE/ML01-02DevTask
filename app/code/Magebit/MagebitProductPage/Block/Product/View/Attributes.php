@@ -15,6 +15,8 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
      * @return string
      */
     public function getAvailableAttributes($product, $attributeKey): string {
+
+
         $attributes = $product->getAttributeText($attributeKey);
 
         if (gettype($attributes) == 'array') {
