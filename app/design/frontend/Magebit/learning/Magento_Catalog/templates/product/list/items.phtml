@@ -53,6 +53,8 @@ switch ($type = $block->getType()) {
             $showCart = true;
             $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
             $description = false;
+
+            $showViewItem = false;
         }
         break;
 
@@ -94,6 +96,8 @@ switch ($type = $block->getType()) {
             $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
             $description = false;
             $canItemsAddToCart = false;
+
+            $showViewItem = true;
         }
         break;
 
@@ -314,6 +318,16 @@ $_item = null;
                                                 <?php // phpcs:enable ?>
                                             <?php endif; ?>
                                         </div>
+
+                                        <?php if ($showViewItem): ?>
+                                            <button type="button"
+                                                    class="action view-product"
+                                                    onclick="window.location.href='<?= $block->escapeUrl($block->getProductUrl($_item)) ?>'"
+                                                    title="<?= __('View Product') ?>">
+                                                View Product
+                                            </button>
+                                        <?php endif; ?>
+
                                     </div>
                                 </li>
                         <?php endforeach ?>

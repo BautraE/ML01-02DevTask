@@ -25,14 +25,14 @@
             <tbody>
             <?php foreach ($_additional as $_data) :?>
                 <tr>
-                    <td class="col data bullet" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>">
+                    <td class="col data bullet" >
                         <b> <?= $block->escapeHtml($_data['label'] . ': ') ?> </b>
                         <?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['label']) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
                 <tr>
-                    <td class="col data" data-th="Description">
+                    <td class="col data" id="short-description">
                         <?= $block->escapeHtml($description) ?>
                     </td>
                 </tr>
