@@ -30,7 +30,8 @@ class CMSPages implements OptionSourceInterface
      * @var collectionFactory $collection
      * @return array
      */
-    public function toOptionArray(): array {
+    public function toOptionArray(): array
+    {
         $options = [];
         $collection = $this->collectionFactory->create();
         $collection->addFieldToSelect(['page_id', 'title']);
