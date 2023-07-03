@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Magebit\PageListWidget\Block\Widget;
 
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
 use Magento\Cms\Api\PageRepositoryInterface;
@@ -51,12 +52,13 @@ class PageList extends Template implements BlockInterface
 
     /**
      * @return array
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
-    public function getRightPages():array {
+    public function getRightPages():array
+    {
         $displayMode = $this->getData('display_mode');
 
-        if ($displayMode == "s") {
+        if ($displayMode === "s") {
             $pageIDString = $this->getData('selected_pages');
             $pageIDs = explode(',', $pageIDString);
             $filter = $this->filterBuilder
@@ -65,11 +67,10 @@ class PageList extends Template implements BlockInterface
                 ->setConditionType('in')
                 ->create();
             $searchCriteria = $this->searchCriteriaBuilder->addFilters([$filter]);
-
+        } else {
+            $searchCriteria = $this->searchCriteriaBuilder->create();
         }
-        $searchCriteria = $this->searchCriteriaBuilder->create();
 
-        $requiredPages = $this->pageRepositoryInterface->getList($searchCriteria)->getItems();
-        return $requiredPages;
+        return $this->pageRepositoryInterface->getList($searchCriteria)->getItems();
     }
 }
