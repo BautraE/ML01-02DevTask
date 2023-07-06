@@ -26,30 +26,28 @@
 */
 ?>
 
-<?php if($_product->getTypeId() == 'simple'): ?>
-    <?php
-    /**
-     * Simple product
-     */
-    ?>
+<?php if($_product->getTypeId() === 'simple'): ?>
+    <?php /** Simple product */ ?>
     <?php
         $extendedClass = $block->getData('attributes_extended');
         $description = $extendedClass->getDescription($_product);
     ?>
-    <?php if ($_additional= $extendedClass->getAttributeList($_product)) :?>
+    <?php if ($_additional= $extendedClass->getAttributeList($_product)): ?>
         <div class="additional-attributes-wrapper table-wrapper">
-            <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <table class="data table additional-attributes"
+                   id="product-attribute-specs-table">
                 <tbody>
                 <?php foreach ($_additional as $_data) :?>
                     <tr>
-                        <td class="col data bullet" >
+                        <td class="col data bullet">
                             <b> <?= $block->escapeHtml($_data['label'] . ': ') ?> </b>
                             <?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['label']) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
                     <tr>
-                        <td class="col data" id="short-description">
+                        <td class="col data short-description"
+                            data-th="Description">
                             <?= $block->escapeHtml($description) ?>
                         </td>
                     </tr>
@@ -65,15 +63,22 @@
      * This is also the default code from vendor
      */
     ?>
-    <?php if ($_additional = $block->getAdditionalData()) :?>
+    <?php if ($_additional = $block->getAdditionalData()): ?>
         <div class="additional-attributes-wrapper table-wrapper">
-            <table class="data table additional-attributes" id="product-attribute-specs-table">
-                <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
+            <table class="data table additional-attributes"
+                   id="product-attribute-specs-table">
+                <caption class="table-caption">
+                    <?= $block->escapeHtml(__('More Information')) ?>
+                </caption>
                 <tbody>
-                <?php foreach ($_additional as $_data) :?>
+                <?php foreach ($_additional as $_data): ?>
                     <tr>
-                        <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
-                        <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                        <th class="col label" scope="row">
+                            <?= $block->escapeHtml($_data['label']) ?>
+                        </th>
+                        <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>">
+                            <?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

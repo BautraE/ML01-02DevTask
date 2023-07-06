@@ -24,10 +24,16 @@ $stockQuantity = $stockItem->getQty();
                 <!-- ko template: getTemplate() --><!-- /ko -->
                 <?php if ($inStock): ?>
                     <span class="check-image"></span>
-                    <span class="stock-state-text">IN STOCK</span>
-                    <span class="quantity-count-text"><?= $block->escapeHtml($stockQuantity) ?> items available</span>
+                    <span class="stock-state-text">
+                        <?= __('In Stock') ?>
+                    </span>
+                    <span class="quantity-count-text">
+                        <?= $block->escapeHtml($stockQuantity) ?> <?= __('Items available') ?>
+                    </span>
                 <?php else: ?>
-                    <span class="stock-state-text">OUT OF STOCK</span>
+                    <span class="stock-state-text">
+                        <?= __('Out of Stock') ?>
+                    </span>
                 <?php endif; ?>
             </div>
         </div>

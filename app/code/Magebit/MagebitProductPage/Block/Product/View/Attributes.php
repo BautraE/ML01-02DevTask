@@ -12,22 +12,16 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
     /**
      * @param $product
      * @param $attributeKey
-     * @return string
+     * @return ?string
      */
-    public function getAvailableAttributes($product, $attributeKey): string {
-
-
+    public function getAvailableAttributes($product, $attributeKey): ?string {
         $attributes = $product->getAttributeText($attributeKey);
 
-        if (gettype($attributes) == 'array') {
-            $attributes = implode(', ', $attributes);
+        if (gettype($attributes) === 'array')
+        {
+            return implode(', ', $attributes);
         }
-
-        if ($attributes === false) {
-            $attributes = 'EMPTY';
-        }
-
-        return $attributes;
+        return null;
     }
 
     /**
@@ -40,19 +34,16 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
      * Array with found parts from text based on pattern
      * @var array $matches
      */
-    public function getDimensions($product): string {
+    public function getDimensions($product): ?string {
         $fullText = $product->getData('description');
         $pattern = '/Dimensions:\s(.*?)\.<\/li>/';
         preg_match($pattern, $fullText, $matches);
 
-        if (count($matches) < 1) {
-            $dimensions = 'EMPTY';
+        if (count($matches) < 1)
+        {
+            return null;
         }
-        else {
-            $dimensions = $matches[1];
-        }
-
-        return $dimensions;
+        return $matches[1];
     }
 
     /**
@@ -69,9 +60,7 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
         $fullText = $product->getData('description');
         $pattern = '/<p>(.*?[.])/';
         preg_match($pattern, $fullText, $matches);
-        $description = $matches[1];
-
-        return $description;
+        return $matches[1];
     }
 
     /**
@@ -93,9 +82,11 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
         $backupAttributes = $this->getAdditionalData();
 
         $toGetAttributes = ['color', 'material'];
-        foreach ($toGetAttributes as $attribute) {
+        foreach ($toGetAttributes as $attribute)
+        {
             $resultValue = $this->getAvailableAttributes($product, $attribute);
-            if ($resultValue != 'EMPTY') {
+            if ($resultValue != null)
+            {
                 $attributes = $attributes + [
                     $attribute => array (
                         'label' => $product->getResource()->getAttribute($attribute)->getFrontendLabel(),
@@ -106,7 +97,8 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
         }
 
         $resultValue = $this->getDimensions($product);
-        if ($resultValue != 'EMPTY') {
+        if ($resultValue != null)
+        {
             $attributes = $attributes + [
                 'dimensions' => array(
                     'label' => 'Dimensions',
@@ -115,9 +107,6 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
         }
 
         $attributes = $attributes + $backupAttributes;
-
-        $attributes = array_slice($attributes, 0, 3);
-
-        return $attributes;
+        return array_slice($attributes, 0, 3);
     }
 }
