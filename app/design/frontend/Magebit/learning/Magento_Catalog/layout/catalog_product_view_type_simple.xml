@@ -8,7 +8,7 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <!-- Wrapper that will define that the style for this task will apply only to the simple product pages. -->
-        <referenceContainer name="page.wrapper" htmlId="page-wrap-simple"></referenceContainer>
+        <referenceContainer name="page.wrapper" htmlClass="page-wrap-simple" />
 
         <!-- Moving the additional attribute block -->
         <move element="product.attributes"
