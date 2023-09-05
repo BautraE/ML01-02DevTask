@@ -26,7 +26,7 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
 
     /**
      * @param $product
-     * @return string
+     * @return string|null
      * Full description text
      * @var string $fullText
      * Pattern to get only the Dimensions attribute
@@ -85,7 +85,7 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
         foreach ($toGetAttributes as $attribute)
         {
             $resultValue = $this->getAvailableAttributes($product, $attribute);
-            if ($resultValue != null)
+            if ($resultValue !== null)
             {
                 $attributes = $attributes + [
                     $attribute => array (
@@ -97,7 +97,7 @@ class Attributes extends OriginalAttributes implements ArgumentInterface
         }
 
         $resultValue = $this->getDimensions($product);
-        if ($resultValue != null)
+        if ($resultValue !== null)
         {
             $attributes = $attributes + [
                 'dimensions' => array(
